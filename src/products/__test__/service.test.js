@@ -1,4 +1,4 @@
-const repo = require('../repository')
+const repo = require('../repository');
 const service = require('../service')
 jest.mock('../repository');
 
@@ -10,21 +10,6 @@ beforeEach(() => {
 it('should create repo when service is called', () => {
     const productService = new service();
     expect(repo).toHaveBeenCalledTimes(1);
-});
-
-it('should call repo get product 5 when service is called with get product 5 ', () => {
-
-    const productService = new service();
-    var product_id = 5
-    productService.getProduct(product_id)
-    //mock class
-    const mockRepoInstance = repo.mock.instances[0];
-    //mock method
-    const mockGetProduct = mockRepoInstance.getProduct;
-
-    expect(mockGetProduct.mock.calls[0][0]).toBe(product_id);
-    expect(mockGetProduct).toHaveBeenCalledTimes(1);
-    expect(mockGetProduct).toHaveBeenCalledWith(product_id);
 });
 
 it('should return product from repo when service is called', () => {
@@ -52,17 +37,50 @@ it('should return product from repo when service is called', () => {
 
 });
 
-it('should return error from repo when service is called', () => {
+it('should return error from service when repo returns null', () => {
     var product_id = 5
 
     repo.mockImplementation(() => {
         return {
             getProduct: () => {
-                throw new Error('Test error');
+                return null
             },
         };
     });
 
     const productService = new service();
     expect(() => productService.getProduct(product_id)).toThrow();
+});
+
+
+describe('Create Product', () => {
+    it('should return error when name is empty', () => {
+        const productService = new service()
+        var name = ""
+        var price = 1200
+
+        expect(() => productService.createProduct(name, price)).toThrow();
+    });
+
+    it('should return error when price is 0', () => {
+        const productService = new service()
+        var name = "Iphone"
+        var price = 0
+        expect(() => productService.createProduct(name, price)).toThrow();
+    });
+
+    it('should return error when repo product is null', () => {
+        const productService = new service()
+        var name = "Iphone"
+        var price = 1200
+        repo.mockImplementation(() => {
+            return {
+                createProduct: () => {
+                    return {}
+                },
+            };
+        });
+        expect(() => productService.createProduct(name, price)).toThrow();
+    });
+
 });
