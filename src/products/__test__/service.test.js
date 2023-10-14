@@ -27,7 +27,7 @@ it('should call repo get product 5 when service is called with get product 5 ', 
     expect(mockGetProduct).toHaveBeenCalledWith(product_id);
 });
 
-it('should get product repo when service is called', () => {
+it('should return product from repo when service is called', () => {
     var product_id = 5
 
     repo.mockImplementation(() => {
@@ -49,4 +49,20 @@ it('should get product repo when service is called', () => {
         "name": "pixel",
         "price": 1200
     });
+
+});
+
+it('should return error from repo when service is called', () => {
+    var product_id = 5
+
+    repo.mockImplementation(() => {
+        return {
+            getProduct: () => {
+                throw new Error('Test error');
+            },
+        };
+    });
+
+    const productService = new service();
+    expect(() => productService.getProduct(product_id)).toThrow();
 });

@@ -2,7 +2,6 @@
 
 var express = require('express')
 var productService = require('./service.js')
-var ProductRepository = require('./repository.js')
 var service = new productService()
 
 var products = express.Router()
