@@ -1,0 +1,28 @@
+{
+  "name": "express-api",
+  "version": "1.0.0",
+  "description": "node js express framework apis",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VenkateshPamarthi45/express-api.git"
+  },
+  "author": "venkatesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VenkateshPamarthi45/express-api/issues"
+  },
+  "homepage": "https://github.com/VenkateshPamarthi45/express-api#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  }
+}
